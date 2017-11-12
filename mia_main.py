@@ -1,7 +1,7 @@
 from PyQt5 import QtGui, QtWidgets, QtCore
-from PyQt5.QtWidgets import QApplication, \
-    QMainWindow, QWidget, QMessageBox, QDesktopWidget, QAction, \
-    qApp, QMenu, QTextEdit
+from PyQt5.QtWidgets import (QApplication, 
+    QMainWindow, QWidget, QMessageBox, QDesktopWidget, QAction, 
+    qApp, QMenu, QTextEdit, QHBoxLayout, QPushButton)
 from PyQt5.QtGui import QIcon
 import sys
 
@@ -26,7 +26,9 @@ class MiaApp(QMainWindow):
         self.statusBar().showMessage('Ready')
         self.statusBar()
 
-        #set up menu bar
+        #############################
+        ####MENU BAR SET UP BEGIN####
+        #############################
         exitAct = QAction(QIcon('exit.png'), '&Exit', self)
         exitAct.setShortcut('Ctrl+Q')
         exitAct.setStatusTip('Exit Application')
@@ -34,8 +36,10 @@ class MiaApp(QMainWindow):
 
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&File')
-        fileMenu.addAction(exitAct)
 
+        #doesnt work
+        #fileMenu.addSeparator()
+        
         #settings menu item
         settingsMenu = QMenu('Settings', self)
         fileMenu.addMenu(settingsMenu)
@@ -44,8 +48,28 @@ class MiaApp(QMainWindow):
         changeConfig = QAction('Change Config File', self)
         settingsMenu.addAction(changeConfig)
 
-        textEdit = QTextEdit()
-        self.setCentralWidget(textEdit)
+
+        fileMenu.addAction(exitAct)
+        ##############################
+        #### MENU BAR SET UP END #####
+        ##############################
+
+        okButton = QPushButton("OK")
+        cancelButton = QPushButton("Cancel")
+
+        mainWidget = QWidget(self)
+        self.setCentralWidget(mainWidget)
+
+        hbox = QHBoxLayout()
+        hbox.addStretch(1)
+        hbox.addWidget(okButton)
+        hbox.addWidget(cancelButton)
+
+        vbox = QtWidgets.QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(hbox)
+
+        mainWidget.setLayout(vbox)
 
         '''
         # if desired, adds a toolbar with an exit icon
