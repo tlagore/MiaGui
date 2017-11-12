@@ -1,0 +1,1 @@
+zetcode.com/gui/pyqt5/layout/
